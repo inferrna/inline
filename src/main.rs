@@ -70,15 +70,15 @@ fn main() {
     let mut file = File::open(&filename).expect("Can't open file");
     let mut data: String = String::new();
     file.read_to_string(&mut data).expect("Can't read file");
-    let img_expr_src = regex::RegexBuilder::new(r#"<img.*?src="(.*?)".*?/>"#)
+    let img_expr_src = regex::RegexBuilder::new(r#"<img[^>]*?src="([^>]*?)".*?/?>"#)
         .dot_matches_new_line(true)
         .build()
         .unwrap();
-    let script_expr_src = regex::RegexBuilder::new(r#"<script.*?src="(.*?)".*?></script>"#)
+    let script_expr_src = regex::RegexBuilder::new(r#"<script[^>]*?src="([^>]*?.js)".*?></script>"#)
         .dot_matches_new_line(true)
         .build()
         .unwrap();
-    let css_expr_src = regex::RegexBuilder::new(r#"<link.*?href="(.*?.css)".*?>"#)
+    let css_expr_src = regex::RegexBuilder::new(r#"<link[^>]*?href="([^>]+?\.css)".*?>"#)
         .dot_matches_new_line(true)
         .build()
         .unwrap();
